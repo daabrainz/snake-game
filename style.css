@@ -5,27 +5,29 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: rgb(235, 235, 235);
     font-family: 'Roboto', sans-serif;
 }
 
 canvas {
     border: 2px solid black;
+    border-radius: 8px;
+    display: flex;
+    background-color: white;
 }
 
 .btn-container {
-    gap: 10px;
     margin-bottom: 20px;
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 10px 60px;
     background-color: lightgreen;
     border: none;
     font-weight: bold;
     cursor: pointer;
     text-align: center;
-
+    border-radius: 8px;
 }
 
 .countdown {

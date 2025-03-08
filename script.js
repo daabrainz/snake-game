@@ -4,12 +4,30 @@ const startBtn = document.getElementById('start-btn');
 const endBtn = document.getElementById('end-btn');
 const countdownElement = document.getElementById('countdown');
 
-const gridSize = 15;
+const gridSize = 10;
+const startX = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
+const startY = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
 let snake = [{ x: gridSize * 5, y:gridSize * 5 }];
 let direction = { x: gridSize, y: 0};
-let food = { x: gridSize * 10, y: gridSize * 10 };
+let food = { x: startX, y: startY };
 let gameInterval;
 
+
+function startCountdown() {
+    let countdown = 3;
+    countdownElement.textContent = countdown;
+
+    const countdownInterval = setInterval(() => {
+        countdown -= 1;
+        countdownElement.textContent = countdown;
+
+        if (countdown === 0) {
+            clearInterval(countdownInterval);
+            countdownElement.textContent = '';
+            startGame();
+        }
+    }, 1000);
+}
 
 // Funktion zum Zeichnen der Schlange und der Nahrung auf dem Canvas
 function draw() {
@@ -69,27 +87,11 @@ function startGame() {
 function endGame() {
     clearInterval(gameInterval);
     gameInterval = null;
-    snake = [{ x: gridSize * 5, y: gridSize * 5 }];
-    direction = {x: gridSize, y: 0 };
-    food = { x: gridSize * 10, y: gridSize * 10};
-    draw();
+
+    
+    update();
 }
 
-function startCountdown() {
-    let countdown = 3;
-    countdownElement.textContent = countdown;
-
-    const countdownInterval = setInterval(() => {
-        countdown -= 1;
-        countdownElement.textContent = countdown;
-
-        if (countdown === 0) {
-            clearInterval(countdownInterval);
-            countdownElement.textContent = '';
-            startGame();
-        }
-    }, 1000);
-}
 
 startBtn.addEventListener('click', startCountdown);
 endBtn.addEventListener('click', endGame);
