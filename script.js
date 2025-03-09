@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 const startBtn = document.getElementById('start-btn');
 const endBtn = document.getElementById('end-btn');
 const countdownElement = document.getElementById('countdown');
+const gameOverElement= document.getElementById('game-over');
 
 const gridSize = 10;
 const startX = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
@@ -11,7 +12,6 @@ let snake = [{ x: gridSize * 5, y:gridSize * 5 }];
 let direction = { x: gridSize, y: 0};
 let food = { x: startX, y: startY };
 let gameInterval;
-
 
 function startCountdown() {
     let countdown = 3;
@@ -44,6 +44,16 @@ function draw() {
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
 }
 
+function checkCollision() {
+    const [head, ...body] = snake;
+    return body.some(segment => segment.x === head.x && segment.y === head.y);
+}
+
+function checkWallCollision() {
+        const head = snake[0];
+        return head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height;
+}
+
 // Funktion zum Aktualisieren der Position der Schlange
 function update() {
     // Berechnen der neuen Position des Kopfes der Schlange basierend auf der aktuellen Richtung
@@ -61,6 +71,10 @@ function update() {
         // Entfernen des letzten Segments der Schlange, um die Länge konstant zu halten
         snake.pop();
     }
+
+    if (checkCollision() || checkWallCollision()) {
+        endGame();
+    } 
 }
 
 // Hauptspielschleife, die die `update`- und `draw`-Funktionen in regelmäßigen Abständen aufruft
@@ -70,6 +84,7 @@ function gameLoop() {
 }
 
 function startGame() {
+    endBtn.style.display = 'inline-block';
     if (gameInterval) {
         clearInterval(gameInterval)
     }
@@ -81,13 +96,16 @@ function startGame() {
     direction = { x: gridSize, y: 0 };
     food = { x: startX , y: startY };
     
+    gameOverElement.style.display = 'none';
     gameInterval = setInterval(gameLoop, 100);
 }
 
 function endGame() {
     clearInterval(gameInterval);
     gameInterval = null;
-
+    gameOverElement.style.display = 'block';
+    endBtn.style.display = 'none';
+    //alert('Game Over!')
     
     update();
 }
