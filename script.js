@@ -6,13 +6,14 @@ const countdownElement = document.getElementById('countdown');
 const gameOverElement= document.getElementById('game-over');
 
 const gridSize = 10;
-const startX = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
-const startY = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
 let snake = [{ x: gridSize * 5, y:gridSize * 5 }];
 let direction = { x: gridSize, y: 0};
-let food = { x: startX, y: startY };
+let food = { 
+    x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize, 
+    y: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize };
 let gameInterval;
 
+drawBoard();
 function startCountdown() {
     let countdown = 3;
     countdownElement.textContent = countdown;
@@ -31,8 +32,10 @@ function startCountdown() {
 
 // Funktion zum Zeichnen der Schlange und der Nahrung auf dem Canvas
 function draw() {
-    ctx.clearRect(0, 0, canvas.clientWidth, canvas.height);
-    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawBoard();
+
     // Zeichnen der Schlange
     ctx.fillStyle = 'orange';
     snake.forEach(segment => {
@@ -42,6 +45,22 @@ function draw() {
     // Zeichnen der Nahrung
     ctx.fillStyle = 'purple';
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
+}
+
+function drawBoard() {
+    for (let row = 0; row < canvas.height / gridSize; row++) {
+        for (let col = 0; col < canvas.width / gridSize; col++) {
+            const x = col * gridSize;
+            const y = row * gridSize;
+
+            if ((row + col) % 2 === 0) {
+                ctx.fillStyle = 'rgba(211, 211, 211, 0.4)'
+            } else {
+                ctx.fillStyle = 'rgba(169, 169, 169, 0.4)'
+            }
+            ctx.fillRect(x, y, gridSize, gridSize);
+        }
+    }
 }
 
 function checkCollision() {
@@ -97,7 +116,7 @@ function startGame() {
     food = { x: startX , y: startY };
     
     gameOverElement.style.display = 'none';
-    gameInterval = setInterval(gameLoop, 100);
+    gameInterval = setInterval(gameLoop, 75);
 }
 
 function endGame() {

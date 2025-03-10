@@ -5,7 +5,8 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: grey;
+    background-color: darkgrey;
+    color: white;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -14,7 +15,7 @@ canvas {
     border-radius: 8px;
     display: flex;
     background-color: white;
-    box-shadow: 2px 2px 2px;
+    //box-shadow: 2px 2px 2px;
 }
 
 .btn-container {
@@ -47,7 +48,7 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: lightgreen;;
+    background-color: black;
     border: none;
     border-radius: 8px;
     padding: 20px;
@@ -60,7 +61,6 @@ canvas {
 }
 
 #header-container {
-    background-color: lightgrey;
     border-radius: 8px;
     margin-bottom: 20px;
     padding: 8px 10px;
