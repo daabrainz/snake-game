@@ -13,7 +13,7 @@ let food = {
     y: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize };
 let gameInterval;
 
-drawBoard();
+// drawBoard();
 function startCountdown() {
     let countdown = 3;
     countdownElement.textContent = countdown;
