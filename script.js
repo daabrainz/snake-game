@@ -34,7 +34,7 @@ function startCountdown() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawBoard();
+    // drawBoard();
 
     // Zeichnen der Schlange
     ctx.fillStyle = 'orange';
